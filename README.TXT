@@ -1,3 +1,7 @@
+개발과정
+https://developmentdiary.tistory.com/561
+
+
 pip install opencv-contrib-python
 pip install pyqt5
 pip install pillow
