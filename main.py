@@ -24,6 +24,8 @@ class MyApp(QMainWindow):
 
     def initUI(self):
 
+        tb = TextBox()
+        language = tb.cb.currentText()
 
         #캡쳐 툴바
         capAction = QAction(QIcon('./img/edit.png'), 'Edit', self)
@@ -34,7 +36,7 @@ class MyApp(QMainWindow):
         ocrAction = QAction(QIcon('./img/print.png'), 'OCR', self)
         ocrAction.setShortcut('Ctrl+E')
         ocrAction.setStatusTip('OCR application')
-        ocrAction.triggered.connect(lambda action: tb.setTexts(pytesseract.image_to_string(cv.imread('./save.jpg'), lang=language)))
+        ocrAction.triggered.connect(lambda action: tb.setTexts(pytesseract.image_to_string(cv.imread('./save.jpg'), lang=tb.cb.currentText())))
         #종료툴바
         exitAction = QAction(QIcon('./img/exit.png'), 'Exit', self)
         exitAction.setShortcut('Ctrl+Q')
@@ -56,9 +58,8 @@ class MyApp(QMainWindow):
 
 
 
-        tb = TextBox()
-        language = tb.cb.currentText()
-        print(language)
+
+
         #텍스트박스 생성
         self.setCentralWidget(tb)
 
@@ -111,10 +112,13 @@ class MyApp(QMainWindow):
                     language=tb.cb.currentText()
                     # 글자추출
                     tb.setTexts(pytesseract.image_to_string(cv.imread('./save.jpg'), lang=language))
+                    #cv.destroyAllWindows()
+
 
         def capture():
             # 스크린샷 찍고저장
             global img
+            cv.destroyAllWindows()
             img = ImageGrab.grab()
             img.save('./screenshot.jpg')
 
@@ -122,8 +126,8 @@ class MyApp(QMainWindow):
             img = cv.imread('./screenshot.jpg', cv.IMREAD_COLOR)
             #타이틀바 없애보기
             #https://stackoverflow.com/questions/49095446/python-opencv-remove-title-bar-toolbar-and-status-bar
-            #cv.namedWindow('img', cv.WND_PROP_FULLSCREEN)
-            #cv.setWindowProperty('img', cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+            cv.namedWindow('img', cv.WND_PROP_FULLSCREEN)
+            cv.setWindowProperty('img', cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
 
             cv.imshow('img', img)
             cv.setMouseCallback('img', onMouse)
@@ -189,6 +193,7 @@ class TextBox(QWidget):
         self.lbl2.setText('The number of words is ' + str(len(text.split())))
     def getText(self):
         pyperclip.copy(self.te.toPlainText())
+        cv.destroyAllWindows()
     # def onActivated(self,text):
     #     print(text)
     #     self.te.setTexts(pytesseract.image_to_string(cv.imread('./save.jpg'), lang=text))

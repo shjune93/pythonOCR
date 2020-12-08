@@ -1,6 +1,7 @@
 개발과정
 https://developmentdiary.tistory.com/561
 
+실행파일은 tesseract 설치후 실행가능(블로그 참조)
 
 pip install opencv-contrib-python
 pip install pyqt5
@@ -8,7 +9,12 @@ pip install pillow
 pip install pytesseract
 pip install pyperclip
 
-필요한 모듈은 따라 다운받아야함
+깃헙에는 용량때문에  소스코드만 올림
+
+필요한 모듈은 따라 다운받아서 실행해야함
+
+모듈까지 다운받기위한 링크
+https://drive.google.com/drive/folders/1_VnGojiTvoo6kuDHyCp0UD9s7xKlbnV-?usp=sharing
 
 
 
